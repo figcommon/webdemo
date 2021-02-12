@@ -19,6 +19,7 @@ public class hiController {
     public String reg(){
         return "register";
     }
+
     @RequestMapping("/register")  //映射到下面的方法
     public String register(HttpServletRequest request,Map<String,Object> map) {
         String username = request.getParameter("username");
@@ -31,12 +32,11 @@ public class hiController {
         User user1=userMapper.getuser(username);
         if (user1!=null){
             map.put("msg1","the user hae been registered!,pls register again");
-            return "register";
+            return "register";//返回 register.html 页面，但是在这个函数中返回值是 String，也就是 html 页面的名称
         }else{
             userMapper.adduser(user);
             return "login";//不存在重名用户注册成功，跳转到登录页面
         }
-
         //return "register";//thymeleaf框架自动拼接。html
     }
 
@@ -61,5 +61,34 @@ public class hiController {
         System.out.println(loginuser);
         map.put("msg2","the user "+loginuser+" login");
         return "login";
+    }
+
+    @RequestMapping("/deleteuser")
+    public String deleteuser(HttpServletRequest request,Map<String,Object> map){
+        String username=request.getParameter("username");
+        User getuser=userMapper.getuser(username);
+        if (getuser!=null){
+            userMapper.deleteuser(username);
+            map.put("msg3","the user hae been deleted!");
+            return "login";
+        }else{
+            map.put("msg3","the user isn't a legal user");
+            return "login";//不存在重名用户注册成功，跳转到登录页面
+        }
+    }
+
+    @RequestMapping("/updateuser")
+    public String update(HttpServletRequest request,Map<String,Object> map ){
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
+        User getuser=userMapper.getuser(username);
+        if (getuser!=null){
+            userMapper.updateuser(username,password);
+            map.put("msg4","the user hae been updated!");
+            return "login";
+        }else{
+            map.put("msg4","the user isn't a legal user");
+            return "login";//不存在重名用户注册成功，跳转到登录页面
+        }
     }
 }

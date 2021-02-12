@@ -12,10 +12,28 @@
         <input type="text" name="username" placeholder="用户名">
         <lable for="">密码</lable>
         <input type="password" name="password" placeholder="密码">
-        <input type="submit" value="注册">
+        <input type="submit" value="登录">
     </form>
     <h2 th:utext="${msg2}"></h2>
 </div>
+<div>
+    <form action="/deleteuser" method="post">
+        <lable for="">用户名</lable>
+        <input type="text" name="username" placeholder="用户名">
 
+        <input type="submit" value="删除用户">
+    </form>
+    <h2 th:utext="${msg3}"></h2>
+</div>
+<div>
+    <form action="/updateuser" method="post">
+        <lable for="">用户名</lable>
+        <input type="text" name="username" placeholder="用户名">
+        <lable for="">密码</lable>
+        <input type="password" name="password" placeholder="密码">
+        <input type="submit" value="更改密码">
+    </form>
+    <h2 th:utext="${msg4}"></h2>
+</div>
 </body>
 </html>
